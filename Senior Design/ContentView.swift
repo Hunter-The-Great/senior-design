@@ -44,6 +44,8 @@ struct ContentView: View {
             DataPoint(time: 30, value: 0)
         ]
     
+    let bluetoothManager = BluetoothManager()
+    
     var body: some View {
         TabView {
             VStack{
