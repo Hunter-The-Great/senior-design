@@ -16,7 +16,7 @@ class BluetoothManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
     
     override init() {
         super.init()
-        centralManager = CBCentralManager(delegate: self, queue: nil)
+        centralManager = CBCentralManager(delegate: self, queue: DispatchQueue.main)
     }
     
     // MARK: - CBCentralManagerDelegate Methods
@@ -34,8 +34,10 @@ class BluetoothManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         print("Discovered Peripheral: \(peripheral.name ?? "Unknown")")
         discoveredPeripheral = peripheral
         discoveredPeripheral?.delegate = self
-        centralManager.stopScan()
-        centralManager.connect(peripheral, options: nil)
+        if peripheral.name == "Project Zero" {
+            centralManager.stopScan()
+            centralManager.connect(peripheral, options: nil)
+        }
     }
     
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
@@ -84,6 +86,7 @@ class BluetoothManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         
         if let data = characteristic.value {
             print("Received Data: \(data)")
+            print(characteristic)
         }
     }
 }
