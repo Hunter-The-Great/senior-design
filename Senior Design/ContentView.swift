@@ -28,7 +28,7 @@ struct ContentView: View {
     
     func startTimer() {
         timer?.invalidate() // stop any existing timer
-        timer = Timer.scheduledTimer(withTimeInterval: 0.00001, repeats: true) { _ in
+        timer = Timer.scheduledTimer(withTimeInterval: 0.001, repeats: true) { _ in
                 //data[currentIndex] = initdata[currentIndex]
                 data[currentIndex] = DataPoint(time: Double(currentIndex), value: initdata[currentIndex].value)
                 currentIndex += 1
